@@ -242,6 +242,15 @@ $( function ()
                     $this.closest( 'form' ).submit();
                 }
             );
+            
+            $oSelectionLists.find( '.variant-dropdown-menu').on('change', function (e)
+                {
+                    $this = $(this);
+                    $this.parent().next().val( $this.val() );
+                    $this.closest( 'form' ).submit();
+                }
+            );
+
         }
 
 

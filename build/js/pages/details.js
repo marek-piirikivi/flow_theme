@@ -29,7 +29,7 @@ Flow.initDetailsEvents = function()
 
     if( $oDetailsWrapper.length )
     {
-        // Variantenauswahl
+        // Variantenauswahl (variant selection)
         $( '#variants .dropdown-menu li a', $oDetailsWrapper ).click( function( e )
             {
                 e.preventDefault();
@@ -41,7 +41,19 @@ Flow.initDetailsEvents = function()
             }
         );
 
-        // Auswahllisten
+        $( '.variant-dropdown-menu', $oDetailsWrapper).on('change', function (e)
+            {
+                $this = $(this);
+                $this.parent().next().val( $this.val() );
+                var form = $("form.js-oxWidgetReload");
+                $('input[name=fnc]', form).val("");
+                form.submit();
+
+                $oDetailsWrapper.find( '#detailsMain' ).prepend( getAjaxLoader() );
+            }
+        );
+
+        // Auswahllisten (selection lists)
         $( '#productSelections .dropdown-menu li a', $oDetailsWrapper ).click( function( e )
             {
                 e.preventDefault();
@@ -51,6 +63,8 @@ Flow.initDetailsEvents = function()
                 $this.parent().parent().prev().siblings( 'button' ).find( 'span' ).first().text( $this.text() );
             }
         );
+
+
     }
 
     if( $oReviewRating.length )
